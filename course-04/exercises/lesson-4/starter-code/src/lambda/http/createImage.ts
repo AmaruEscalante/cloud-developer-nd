@@ -83,11 +83,12 @@ async function createImage(groupId: string, imageId: string, event: any) {
 
   return newItem
 }
-
+// Fails if not parsed to integer due to url expiration time is a string.
+// Also works without it sicen its set by default by aws.
 function getUploadUrl(imageId: string) {
   return s3.getSignedUrl('putObject', {
     Bucket: bucketName,
     Key: imageId,
-    Expires: urlExpiration
+    Expires: parseInt(urlExpiration)
   })
 }
