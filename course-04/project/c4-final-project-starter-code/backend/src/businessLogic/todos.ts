@@ -40,3 +40,12 @@ export async function getTodosForUser(
   const items = await todosAccess.getTodos(userId)
   return items
 }
+
+export async function deleteTodo(
+  userId: string,
+  todoId: string
+):  Promise<void> {
+  logger.info(`Deleting todo ${todoId} for user ${userId}`)
+  await todosAccess.deleteTodo(userId, todoId)
+  logger.info(`Todo ${todoId} deleted for user ${userId}`)
+}
