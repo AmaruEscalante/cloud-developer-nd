@@ -39,9 +39,7 @@ export class TodosAccess {
         return items as TodoItem[]
     }
 
-    // async updateTodo(todo: TodoItem): Promise<TodoItem>{
-
-    // }
+    // async deleteTodo(todoId)
 
 }
 
