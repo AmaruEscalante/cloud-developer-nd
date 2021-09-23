@@ -12,7 +12,6 @@ export const handler = middy(
     console.log(`Processing event ${event}`)
     const todoId = event.pathParameters.todoId
     const userId = getUserId(event)
-    // TODO: Remove a TODO item by id
     await deleteTodo(userId, todoId)
     
     return {
