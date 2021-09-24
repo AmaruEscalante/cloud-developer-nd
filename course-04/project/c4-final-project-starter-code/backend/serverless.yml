@@ -43,6 +43,18 @@ provider:
             - s3:GetObject
           Resource: arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*
 
+  apiGateway:
+    request:
+      schemas:
+        todo-create-model:
+          name: CreateTodoModel
+          schema: ${file(models/create-todo-model.json)}
+          description: 'A model validation for adding Todos'
+        todo-update-model:
+          name: UpdateTodoModel
+          schema: ${file(models/update-todo-model.json)}
+          description: 'A model validation for updating Todos'
+
 functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
@@ -78,7 +90,7 @@ functions:
           authorizer: Auth
           request:
             schemas:
-              application/json: ${file(models/create-todo-model.json)}
+              application/json: todo-create-model
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -98,7 +110,7 @@ functions:
           cors: true
           request:
             schemas:
-              application/json: ${file(models/update-todo-model.json)}
+              application/json: todo-update-model
     iamRoleStatements:
       - Effect: Allow
         Action:
